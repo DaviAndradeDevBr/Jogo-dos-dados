@@ -30,21 +30,20 @@ class Program
     static void Main(string[] args)
     {
         const int limiteLinhaChegada = 30;
+        const int bonusAvancoExtra = 3;
+        const int penalidadeRecuo = 2;
 
 
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("-------------------------------------------");
-
-            Console.WriteLine("Jogo dos Dados");
-            Console.WriteLine("-------------------------------------------");
+            
 
             int posicaoJogador = 0;
             bool jogoEstaEmAndamento = true;
 
             while (jogoEstaEmAndamento)
             {
+                
                 Console.Clear();
                 Console.WriteLine("-------------------------------------------");
 
@@ -58,7 +57,7 @@ class Program
 
                 int resultado = RandomNumberGenerator.GetInt32(1, 7);
 
-                Console.WriteLine("-------------------------------------------");
+
 
 
                 Console.WriteLine("-------------------------------------------");
@@ -68,11 +67,29 @@ class Program
                 posicaoJogador += resultado;
 
 
-                if (posicaoJogador < limiteLinhaChegada)
-                    Console.WriteLine($"Você está na posição: {posicaoJogador} de {limiteLinhaChegada}");
-                else
+
+                Console.WriteLine($"Você está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+
+
+                if (posicaoJogador == 5 || posicaoJogador == 10 || posicaoJogador == 15 || posicaoJogador == 25)
                 {
-                    Console.WriteLine("Parabéns! Você alcançou a linha de chegada.");
+                    Console.WriteLine($"\nEVENTO: Avanço de {bonusAvancoExtra} casas!");
+                    posicaoJogador += bonusAvancoExtra;
+
+                    Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+                }
+                else if (posicaoJogador == 7 || posicaoJogador == 13 || posicaoJogador == 20)
+                {
+                    Console.WriteLine($"\nEVENTO: Recuo de {penalidadeRecuo} casas");
+                    posicaoJogador -= penalidadeRecuo;
+
+                    Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+                }
+
+                if (posicaoJogador >= limiteLinhaChegada)
+                {
+
+                    Console.WriteLine("\nParabéns! Você alcançou a linha de chegada.");
 
 
 
@@ -80,6 +97,7 @@ class Program
                 }
 
 
+                Console.WriteLine();
                 Console.Write("Pressione ENTER para continuar...");
                 Console.ReadLine();
             }
@@ -89,7 +107,7 @@ class Program
             Console.Write("Deseja continuar? (S/N): ");
             string? opcaoContinuar = Console.ReadLine()?.ToUpper();
 
-            
+
             if (opcaoContinuar != "S")
                 break;
 
