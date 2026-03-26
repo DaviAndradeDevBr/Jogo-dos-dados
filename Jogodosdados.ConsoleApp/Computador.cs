@@ -4,12 +4,16 @@ namespace Jogodosdados.ConsoleApp;
 
 static class Computador
 {
-    public static int ExecutarRodada(
-        int posicaoComputador,
-        int limiteLinhaChegada,
-        int bonusAvancoExtra,
-        int penalidadeRecuo
-    )
+    
+    public static int posicao = 0;
+
+    private const int limiteLinhaChegada = 30;
+    
+    private const int bonusAvancoExtra = 3;
+    
+    private const int penalidadeRecuo = 2;
+    
+    public static void ExecutarRodada()
     {
         do
         {
@@ -20,27 +24,27 @@ static class Computador
             Console.WriteLine($"O número sorteado foi: {resultadoComputador}");
             Console.WriteLine("-------------------------------------------");
 
-            posicaoComputador += resultadoComputador;
+            posicao += resultadoComputador;
 
-            Console.WriteLine($"O computador está na posição: {posicaoComputador} de {limiteLinhaChegada}");
+            Console.WriteLine($"O computador está na posição: {posicao} de {limiteLinhaChegada}");
 
-            if (posicaoComputador == 5 || posicaoComputador == 10 || posicaoComputador == 15 || posicaoComputador == 25)
+            if (posicao == 5 || posicao == 10 || posicao == 15 || posicao == 25)
             {
                 Console.WriteLine($"\nEVENTO: Avanço de {bonusAvancoExtra} casas!");
-                posicaoComputador += bonusAvancoExtra;
+                posicao += bonusAvancoExtra;
 
-                Console.WriteLine($"\nO computador está na posição: {posicaoComputador} de {limiteLinhaChegada}");
+                Console.WriteLine($"\nO computador está na posição: {posicao} de {limiteLinhaChegada}");
             }
 
-            else if (posicaoComputador == 7 || posicaoComputador == 13 || posicaoComputador == 20)
+            else if (posicao == 7 || posicao == 13 || posicao == 20)
             {
                 Console.WriteLine($"\nEVENTO: Recuo de {penalidadeRecuo} casas");
-                posicaoComputador -= penalidadeRecuo;
+                posicao -= penalidadeRecuo;
 
-                Console.WriteLine($"\nO computador está na posição: {posicaoComputador} de {limiteLinhaChegada}");
+                Console.WriteLine($"\nO computador está na posição: {posicao} de {limiteLinhaChegada}");
             }
 
-            if (posicaoComputador >= limiteLinhaChegada)
+            if (posicao >= limiteLinhaChegada)
             {
                 Console.WriteLine("\nQue pena! O computador alcançou a linha de chegada.");
 
@@ -66,8 +70,13 @@ static class Computador
             }
 
         } while (true);
+        
+    }
 
-        return posicaoComputador;
+
+    public static bool Venceu()
+    {
+       return posicao >= limiteLinhaChegada; 
     }
 
     private static void ExibirCabecalho()
